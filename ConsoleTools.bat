@@ -1,4 +1,4 @@
-﻿@echo off
+@echo off
 title ConsoleTools by bautistasbr
 
 :inicio
@@ -42,27 +42,29 @@ echo *****-=[Utilidades para el Disco Duro]=-*****
 echo. 
 echo 1) Corregir errores en el disco   
 echo 2) Corregir sectores defectuosos   
-echo 3) Opcion 3   
-echo 4) Opcion 4   
-echo 5) Opcion 5   
+echo 3) Formatear unidad   
+echo 4) Formatear unidad (Rapido)   
+echo 5) Convertir de Fat a Ntfs  
+echo 6) Editor de particiones  
 echo ********************
-echo 6) Volver
+echo 7) Volver
 echo ********************
 echo.
 
-	set /p opdiscomenu=Seleccione una opcion [1-6]:
+	set /p opdiscomenu=Seleccione una opcion [1-7]:
 if "%opdiscomenu%"=="1" goto opdiscoduro1
 if "%opdiscomenu%"=="2" goto opdiscoduro2
 if "%opdiscomenu%"=="3" goto opdiscoduro3
 if "%opdiscomenu%"=="4" goto opdiscoduro4
 if "%opdiscomenu%"=="5" goto opdiscoduro5
-if "%opdiscomenu%"=="6" goto opdiscodurovolver
+if "%opdiscomenu%"=="6" goto opdiscoduro6
+if "%opdiscomenu%"=="7" goto opdiscodurovolver
 	
 :opdiscoduro1
 cls
 echo.
 echo Se va a ejecutar el comando Chkdsk /f para intentar corregir fallos en el disco duro.
-echo Puede tardar en funcion del tamaño del disco.
+echo Puede tardar en funcion de la capacidad del disco.
 echo.
 echo Introduce la letra de la unidad seguida por : 
 echo Ejemplo:   d:
@@ -77,7 +79,7 @@ echo.
 cls
 echo.
 echo Se va a ejecutar el comando Chkdsk /r para intentar corregir sectores defectuosos.
-echo Puede tardar en funcion del tamaño del disco.
+echo Puede tardar en funcion de la capacidad del disco.
 echo.
 echo Introduce la letra de la unidad seguida por : 
 echo Ejemplo:   d:
@@ -87,7 +89,60 @@ echo.
 	pause
 	goto opdiscoduro
 	
-:opdiscodurovolver	
+	:opdiscoduro3
+cls
+echo.
+echo Se va a formatear la unidad, haga una copia de todos sus archivos antes de proceder.
+echo Puede tardar en funcion de la capacidad del disco.
+echo.
+echo Introduce la letra de la unidad seguida por : 
+echo Ejemplo:   d:
+echo.
+	set /p letraunidad=Escribe la letra de la unidad : 
+	  format  %letraunidad%
+	pause
+	goto opdiscoduro
+	
+	:opdiscoduro4
+cls
+echo.
+echo Se va a formatear la unidad de forma rápida, haga una copia de todos sus archivos antes de proceder.
+echo Puede tardar en funcion de la capacidad del disco.
+echo.
+echo Introduce la letra de la unidad seguida por : 
+echo Ejemplo:   d:
+echo.
+	set /p letraunidad=Escribe la letra de la unidad : 
+	  format /q %letraunidad%
+	pause
+	goto opdiscoduro
+	
+	:opdiscoduro5
+cls
+echo.
+echo Se va a convertir la unidad a Ntfs, es recomendable que haga una copia de todos sus archivos antes de proceder.
+echo Puede tardar en funcion de la capacidad del disco.
+echo.
+echo Introduce la letra de la unidad seguida por : 
+echo Ejemplo:   d:
+echo.
+	set /p letraunidad=Escribe la letra de la unidad : 
+	  convert %letraunidad% /fs:ntfs
+	pause
+	goto opdiscoduro
+
+	
+		:opdiscoduro6
+cls
+echo.
+echo Editor de particiones de Windows.
+echo.
+echo.
+	  diskpart
+	pause
+	goto opdiscoduro
+	
+	:opdiscodurovolver	
 	goto inicio
 	
 	
