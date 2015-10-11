@@ -7,7 +7,7 @@ echo ********************
 echo *****-=[MENU]=-*****
 echo ********************
 echo 1) Disco Duro   
-echo 2) Opcion 2   
+echo 2) Sistema de Archivos   
 echo 3) Opcion 3   
 echo 4) Opcion 4   
 echo 5) Opcion 5   
@@ -18,7 +18,7 @@ echo.
 
 set /p opinicio=Seleccione una opcion [1-6]:
 if "%opinicio%"=="1" goto opdiscoduro
-if "%opinicio%"=="2" goto op2
+if "%opinicio%"=="2" goto opsistemaarchivos
 if "%opinicio%"=="3" goto op3
 if "%opinicio%"=="4" goto op4
 if "%opinicio%"=="5" goto op5
@@ -154,22 +154,53 @@ echo.
 	
 	
 	
-:op2
+:opsistemaarchivos
     echo.
-    echo. Has elegido la opcion No. 2
+    echo *****-=[Utilidades para el Sistema de Archivos]=-*****
     echo.
-        ::Aquí van las líneas de comando de tu opción
-        color 09
-    echo.
-    pause
-    goto inicio
+echo 1) Comprobar archivos del sistema   
+echo 2) 2   
+echo 3) 3   
+echo 4) 4  
+echo 5) 5  
+echo 6) 6  
+echo ********************
+echo 7) Volver
+echo ********************
+echo.
+
+	set /p opdiscomenu=Seleccione una opcion [1-7]:
+if "%opdiscomenu%"=="1" goto opsistemaarchivos1
+if "%opdiscomenu%"=="2" goto opsistemaarchivos2
+if "%opdiscomenu%"=="3" goto opsistemaarchivos3
+if "%opdiscomenu%"=="4" goto opsistemaarchivos4
+if "%opdiscomenu%"=="5" goto opsistemaarchivos5
+if "%opdiscomenu%"=="6" goto opsistemaarchivos6
+if "%opdiscomenu%"=="7" goto opsistemaarchivosvolver
+
+:opsistemaarchivos1
+cls
+echo.
+echo Se van a comprobar los archivos del sistema y se repararan los defectuosos o faltantes.
+echo.
+	  sfc /scannow
+	pause
+	goto opsistemaarchivos
+
+
+
+
+
+
+	:opsistemaarchivosvolver	
+	goto inicio
+	
 
 :op3
     echo.
     echo. Has elegido la opcion No. 3
     echo.
-        ::Aquí van las líneas de comando de tu opción
-        color 0A
+  
     echo.
     pause
     goto inicio
@@ -178,8 +209,7 @@ echo.
     echo.
     echo. Has elegido la opcion No. 4
     echo.
-        ::Aquí van las líneas de comando de tu opción
-        color 0B
+   
     echo.
     pause
     goto inicio
@@ -188,8 +218,7 @@ echo.
     echo.
     echo. Has elegido la opcion No. 5
     echo.
-        ::Aquí van las líneas de comando de tu opción
-        color 0C
+  
     echo.
     pause
     goto inicio
