@@ -7,7 +7,7 @@ echo ********************
 echo *****-=[MENU]=-*****
 echo ********************
 echo 1) Disco Duro   
-echo 2) Sistema de Archivos   
+echo 2) Reparar el Sistema   
 echo 3) Opcion 3   
 echo 4) Opcion 4   
 echo 5) Opcion 5   
@@ -18,7 +18,7 @@ echo.
 
 set /p opinicio=Seleccione una opcion [1-6]:
 if "%opinicio%"=="1" goto opdiscoduro
-if "%opinicio%"=="2" goto opsistemaarchivos
+if "%opinicio%"=="2" goto oprepararsistema
 if "%opinicio%"=="3" goto op3
 if "%opinicio%"=="4" goto op4
 if "%opinicio%"=="5" goto op5
@@ -154,14 +154,15 @@ echo.
 	
 	
 	
-:opsistemaarchivos
+:oprepararsistema
+cls
     echo.
-    echo *****-=[Utilidades para el Sistema de Archivos]=-*****
+    echo *****-=[Utilidades para Reparar el Sistema]=-*****
     echo.
 echo 1) Comprobar archivos del sistema   
-echo 2) 2   
-echo 3) 3   
-echo 4) 4  
+echo 2) Reparar Internet (Winsock,DNS,TCP)   
+echo 3) Restaurar ajustes del Firewall   
+echo 4) Restaurar ajustes de Internet Explorer  
 echo 5) 5  
 echo 6) 6  
 echo ********************
@@ -170,29 +171,62 @@ echo ********************
 echo.
 
 	set /p opdiscomenu=Seleccione una opcion [1-7]:
-if "%opdiscomenu%"=="1" goto opsistemaarchivos1
-if "%opdiscomenu%"=="2" goto opsistemaarchivos2
-if "%opdiscomenu%"=="3" goto opsistemaarchivos3
-if "%opdiscomenu%"=="4" goto opsistemaarchivos4
-if "%opdiscomenu%"=="5" goto opsistemaarchivos5
-if "%opdiscomenu%"=="6" goto opsistemaarchivos6
-if "%opdiscomenu%"=="7" goto opsistemaarchivosvolver
+if "%opdiscomenu%"=="1" goto oprepararsistema1
+if "%opdiscomenu%"=="2" goto oprepararsistema2
+if "%opdiscomenu%"=="3" goto oprepararsistema3
+if "%opdiscomenu%"=="4" goto oprepararsistema4
+if "%opdiscomenu%"=="5" goto oprepararsistema5
+if "%opdiscomenu%"=="6" goto oprepararsistema6
+if "%opdiscomenu%"=="7" goto oprepararsistemavolver
 
-:opsistemaarchivos1
+:oprepararsistema1
 cls
 echo.
 echo Se van a comprobar los archivos del sistema y se repararan los defectuosos o faltantes.
 echo.
 	  sfc /scannow
 	pause
-	goto opsistemaarchivos
+	goto oprepararsistema
 
+:oprepararsistema2
+cls
+echo.
+echo Se van a realizar los cambios necesarios para restaurar la conexion de red.
+echo.
+	  IPCONFIG /release
+	  IPCONFIG /renew
+	  IPCONFIG /flushdns
+	  nbtstat -RR
+	  arp -d *
+	  nbtstat -R
+	  IPCONFIG /registerdns
+	  netsh winsock reset catalog
+	  netsh int ip reset
+	pause
+	goto oprepararsistema
 
+:oprepararsistema3
+cls
+echo.
+echo Se van restaurar los ajustes del Firewall de Windows.
+echo.
 
+netsh advfirewall reset
+	pause
+	goto oprepararsistema
 
+:oprepararsistema4
+cls
+echo.
+echo Se van restaurar los ajustes de Internet Explorer.
+echo.
 
-
-	:opsistemaarchivosvolver	
+RunDll32.exe InetCpl.cpl,ResetIEtoDefaults
+RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 4351
+	pause
+	goto oprepararsistema
+	
+	:oprepararsistemavolver	
 	goto inicio
 	
 
