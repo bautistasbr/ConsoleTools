@@ -9,7 +9,7 @@ echo *****-=[MENU]=-*****
 echo ********************
 echo 1) Disco Duro   
 echo 2) Reparar el Sistema   
-echo 3) Opcion 3   
+echo 3) Habilitar Aplicaciones    
 echo 4) Opcion 4   
 echo 5) Opcion 5   
 echo ********************
@@ -22,7 +22,7 @@ echo.
 set /p opinicio=Seleccione una opcion [1-6]:
 if "%opinicio%"=="1" goto opdiscoduro
 if "%opinicio%"=="2" goto oprepararsistema
-if "%opinicio%"=="3" goto op3
+if "%opinicio%"=="3" goto ophabilitaraplicaciones
 if "%opinicio%"=="4" goto op4
 if "%opinicio%"=="5" goto op5
 if "%opinicio%"=="6" goto salir
@@ -569,14 +569,56 @@ echo Reinicie el sistema.
 	goto inicio
 	
 
-:op3
+:ophabilitaraplicaciones
+cls
     echo.
-    echo. Has elegido la opcion No. 3
+    echo *****-=[Habilitar Aplicaciones]=-*****
     echo.
-  
-    echo.
-    pause
-    goto inicio
+echo 1) Task Manager  
+echo 2) Regedit 
+echo 3)  
+echo 4)   
+echo 5)  
+echo 6)  
+echo ********************
+echo 7) Volver
+echo ********************
+echo.
+
+	set /p opdiscomenu=Seleccione una opcion [1-7]:
+if "%opdiscomenu%"=="1" goto ophabilitaraplicacionesTask
+if "%opdiscomenu%"=="2" goto ophabilitaraplicacionesRegedit
+if "%opdiscomenu%"=="3" goto 
+if "%opdiscomenu%"=="4" goto 
+if "%opdiscomenu%"=="5" goto 
+if "%opdiscomenu%"=="6" goto 
+if "%opdiscomenu%"=="7" goto ophabilitaraplicacionesvolver
+
+
+:ophabilitaraplicacionesTask
+cls
+echo.
+echo.
+	REG add HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\System  /v  DisableTaskMgr  /t REG_DWORD  /d /0 /f
+	echo.
+	echo Reinicia el Sistema.
+	pause
+	goto ophabilitaraplicacionesvolver
+
+	:ophabilitaraplicacionesRegedit
+cls
+echo.
+echo.
+	reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\System" /t Reg_dword /v DisableRegistryTools /f /d 0
+	echo.
+	echo Reinicia el Sistema.
+	pause
+	goto ophabilitaraplicacionesvolver
+	
+   
+   :ophabilitaraplicacionesvolver	
+	goto inicio
+   
    
 :op4
     echo.
